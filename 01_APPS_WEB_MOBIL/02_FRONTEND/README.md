@@ -52,11 +52,11 @@ let nickname = null;       // Null
 let velocitat;             // Undefined
 
 // Vectors (Arrays)
-let enemics = ["TieFighter", "StarDestroyer", "DeathStar"];
-let puntuacions = [50, 100, 300];
+const enemics = ["TieFighter", "StarDestroyer", "DeathStar"];
+const puntuacions = [50, 100, 300];
 
 // Objecte literal (Objectes simples creats pel desenvolupador)
-let jugador = {
+const jugador = {
     nom: "X-Wing",
     vides: 3,
     punts: 0,
@@ -77,6 +77,7 @@ let jugador = {
 - `**` (Exponent): Eleva un valor a una potència.
 - `++` (Increment): Augmenta el valor d'una variable en 1.
 - `--` (Decrement): Disminueix el valor d'una variable en 1.
+- `+` (Concatenació strings): Antic mètode per concatenar cadenes.
 
 **Operadors Relacionals**: Permeten comparar valors. Determina si el resultat de l'operació és cert o fals.
 - `==` (Igual a): Comprova si dos valors són iguals (només té en compte el valor).
@@ -97,6 +98,7 @@ let jugador = {
 // Aritmètics
 let puntsTotal = punts + (bonus * nivell);
 let videsTotals = vides - errades;
+const statusJugador = "Pepet: " + puntsTotal;
 
 // Relacionals
 let haGuanyat = punts >= puntsPerfecte;
@@ -138,6 +140,10 @@ switch (nivell) {
         numEnemics = 3;
         maxPunts = 50;
 }
+
+// (Operador ternari) - Assigna un valor si es compleix la condició sinó assigna un altre valor.
+const missatge = (vides > 0) ? "Estàs viu" : "Has mort";
+const nomUsuari = (usuari === null) ? "Jugador1" : usuari;
 ```
 
 ### Estructures de Control Iteratiu
@@ -161,6 +167,19 @@ while (estaViu && numEnemics > 0) {
 let posicioEnemic = 0;
 for (let i = 0; i < 10; i++) {
     posicioEnemic += 5;
+}
+
+// (forEach) Executa un bloc de codi per a cada element d'un vector
+const enemics = ["TieFighter", "StarDestroyer", "DeathStar"];
+enemics.forEach((enemic) => {
+    console.log(`Enemic: ${enemic}`);
+});
+
+// (for .. in) Executa un bloc de codi per a cada clau d'un objecte (simula un array associatiu)
+const puntuacions = { "facil": 100, "normal": 200, "dificil": 500 };
+
+for (const dificultat in puntuacions) {
+  console.log(dificultat, puntuacions[dificultat]);
 }
 ```
 

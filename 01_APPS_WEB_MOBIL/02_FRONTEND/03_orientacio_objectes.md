@@ -1,4 +1,4 @@
-# 03. Programació Orientada a Objectes
+# 03. Programació Orientada a Objectes amn JavaScript
 
 La Programació Orientada a Objectes (POO) és un paradigma que es basa el desenvolupament de programes en la creació i gestió d’elements independents denominats "objectes", simulant objectes del món real. Cada objecte es responsable d’unes tasques específiques i mitjançant la creació d’objectes i la interacció entre objectes avança l’execució del programa.
 
@@ -30,11 +30,11 @@ En JavaScript, la POO es pot aplicar de dues maneres:
 
 ### L’Herència: 
 
-Permet definir noves classes a partir de classes ja existents (classe Parent). Les noves classes (subclasses) hereten les propietats i mètodes de la classe pare. També poden afegir noves funcionalitats o modificar el comportament heretat. L’herència es útil per la reutilització de codi i establir una jerarquia de classes.
+Permet definir noves classes a partir de classes ja existents (superclasse). Les noves classes (subclasses) hereten les propietats i mètodes de la classe pare. També poden afegir noves funcionalitats o modificar el comportament heretat. L’herència es útil per la reutilització de codi i establir una jerarquia de classes.
 
 ### El Polimorfisme: 
 
-És la capacitat que disposa un objecte per respondre o comportar-se de manera diferent a una mateixa acció o mètode (en funció del context).  Això permet a un mètode amb el mateix nom realitzar diferents tasques en funció de la classe que l'implementi. Aquest procés s’implementa mitjançant l’herència i la possiiblitat de sobreescriure mètodes a les subclasses.
+És la capacitat que disposa un objecte per respondre o comportar-se de manera diferent a una mateixa acció o mètode (en funció del context).  Això permet a un mètode amb el mateix nom realitzar diferents tasques en funció de la classe que l'implementi. Aquest procés s’implementa mitjançant l’herència i la possibilitat de sobreescriure mètodes a les subclasses.
 
 ## Declaració de Classes
 

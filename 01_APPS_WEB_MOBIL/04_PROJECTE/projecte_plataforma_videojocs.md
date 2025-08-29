@@ -42,7 +42,6 @@ Una empresa de videojocs indie vol crear una plataforma web per als seus jugador
 - **Classificació** amb una taula amb el rànking dels millors jugadors per cada joc actiu.
 - **Desplegament** en un sistema de contenidors en xarxa.
 
-
 ### Documentació:
 - Model Entitat-Relació de la base de dades i script SQL.
 - Documentació de l'API com s'utilitza (endpoints, paràmetres, format de les respostes, etc.)
@@ -58,7 +57,7 @@ Una empresa de videojocs indie vol crear una plataforma web per als seus jugador
 
 ### Stack tecnològic:
 - **Frontend**: HTML5, CSS3, JavaScript ES6+
-- **Backend**: PHP 8.x amb sessions natives
+- **Backend**: PHP 8.x
 - **Base de dades**: MySQL/MariaDB
 - **Servidor web**: Apache/Nginx
 
@@ -77,72 +76,22 @@ Una empresa de videojocs indie vol crear una plataforma web per als seus jugador
 
 ## 5. PROPOSTA MODEL ENTITAT-RELACIÓ
 
-### Taules principals:
-
-```sql
--- Taula d'usuaris
-CREATE TABLE usuaris (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nom_usuari VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    nom_complet VARCHAR(100),
-    data_registre DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
--- Taula de jocs
-CREATE TABLE jocs (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nom_joc VARCHAR(50) NOT NULL,
-    descripcio TEXT,
-    puntuacio_maxima_possible INT,
-    nivells_totals INT DEFAULT 1,
-    actiu BOOLEAN DEFAULT TRUE
-);
-
--- Taula de nivells dels jocs
-CREATE TABLE nivells_joc (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    joc_id INT NOT NULL,
-    nivell INT NOT NULL,
-    nom_nivell VARCHAR(50),
-    configuracio_json JSON NOT NULL,
-    puntuacio_minima_acces INT DEFAULT 0,
-    FOREIGN KEY (joc_id) REFERENCES jocs(id) ON DELETE CASCADE
-);
-
--- Taula de progrés d'usuari
-CREATE TABLE progres_usuari (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    usuari_id INT NOT NULL,
-    joc_id INT NOT NULL,
-    nivell_actual INT DEFAULT 1,
-    puntuacio_maxima INT DEFAULT 0,
-    partides_jugades INT DEFAULT 0,
-    ultima_partida DATETIME,
-    FOREIGN KEY (usuari_id) REFERENCES usuaris(id) ON DELETE CASCADE,
-    FOREIGN KEY (joc_id) REFERENCES jocs(id) ON DELETE CASCADE
-);
-
--- Taula de partides
-CREATE TABLE partides (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    usuari_id INT NOT NULL,
-    joc_id INT NOT NULL,
-    nivell_jugat INT NOT NULL,
-    puntuacio_obtinguda INT NOT NULL,
-    data_partida DATETIME DEFAULT CURRENT_TIMESTAMP,
-    durada_segons INT,
-    FOREIGN KEY (usuari_id) REFERENCES usuaris(id) ON DELETE CASCADE,
-    FOREIGN KEY (joc_id) REFERENCES jocs(id) ON DELETE CASCADE
-);
-```
+Segons les taules de la base de dades (usuaris, jocs, nivells_joc, partides i progres_usuari), es proposen les següents relacions:
 
 ### Relacions:
 - Un **usuari** pot tenir molts **progres_usuari** (1 → N)
 - Un **joc** pot tenir molts **nivells_joc** (1 → N)
 - Un **usuari** pot jugar moltes **partides** (1 → N)
-- Una **partida** està associada a un usuari i un joc específic
+- Una **partida** està associada a un usuari i un joc específic (N:1 amb cadascun)
+- Un **joc** pot tenir molts **progres_usuari** (1 → N)
+
+### Claus Foranes:
+
+- progres_usuari → usuari (FK)
+- progres_usuari → joc (FK)
+- nivells_joc → joc (FK)
+- partides → usuari (FK)
+- partides → joc (FK)
 
 ## 6. DETALLS DE L'API
 
@@ -159,7 +108,7 @@ GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usu
 ```json
 {
   "nivell": 2,
-  "enemics": 3,
+  "enemics": 16,
   "projectils": 6,
   "vides": 3,
   "punts": 600
@@ -257,7 +206,6 @@ GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usu
 - Codi PHP estructurat i comentat
 - Documentació de l'API desenvolupada
 - Proves bàsiques de funcionament
-
 
 ### **Fase 5: Integració, Auditoria i Desplegament** (8 hores)
 
