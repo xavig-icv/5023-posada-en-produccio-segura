@@ -1,19 +1,19 @@
 # PROJECTE - PLATAFORMA DE VIDEOJOCS WEB
 
-El projecte del TEMA 1 té com a objectiu dissenyar i desenvolupar una plataforma web de videojocs (frontend i backend) utilitzant HTML, CSS, JS, PHP i SQL. Al TEMA 5, s'haurà de realitzar el desplegament de l'aplicació de manera segura en un entorn de producció real (creant i configurant els diferents contenidors de Docker), realitzant l'auditoria de seguretat web corresponent i corregint les vulnerabilitats detectades.
+El projecte del TEMA 1 té com a objectiu dissenyar i desenvolupar una plataforma web de videojocs (frontend i backend) utilitzant les tecnologies HTML, CSS, JS, PHP i SQL. Al TEMA 3, s'haurà de realitzar l'auditoria de seguretat web corresponent i corregir les vulnerabilitats detectades. Finalment al TEMA 5 es treballarà el desplegament de l'aplicació de manera segura en un entorn de producció real (creant i configurant els diferents contenidors de Docker en xarxa).
 
 ## 1. INTRODUCCIÓ
 
 Una empresa de videojocs indie vol crear una plataforma web per als seus jugadors. Actualment disposen de jocs independents però els volen centralitzar en una única plataforma on els usuaris puguin registrar-se, jugar, competir entre ells i realitzar el seguiment de les seves puntuacions. Per això, necessiten una aplicació web que integri els següents elements:
 
 - **Un sistema web** on els usuaris puguin registrar-se, iniciar sessió i visualitzar els jocs disponibles.
-- **Una plataforma de jocs** permeti accedir i jugar als diferents videojocs desenvolupats en JavaScript.
-- **Un sistema de puntuació** que emmagatzemi el progrés i les puntuacions de cada jugador per cada joc.
+- **Un sistema de control dels jocs** que permeti accedir i jugar als diferents videojocs desenvolupats en JavaScript.
+- **Un sistema de puntuació** que emmagatzemi el progrés i les puntuacions de cada jugador per a cada joc.
 - **Una classificació** que mostri els millors jugadors de cadascun dels jocs de la plataforma.
-- **Una API** amb els valors per inicialitzar la partida d'un joc segons el nivell actual de cada usuari.
-- **Un sistema de desplegament segur** utilitzant contenidors Docker i scripts de posada en producció.
+- **Una API** que proporcioni els valors per inicialitzar la partida d'un joc segons el nivell actual de cada usuari.
+- **Un sistema de desplegament segur** utilitzant contenidors Docker en xarxa i scripts de posada en producció.
 
-**Durada del projecte a l'aula**: Projecte anual (12h Tema 1 + 8h Tema 3 + 12h hores Tema 5)
+**Durada del projecte a l'aula**: Projecte anual (10h Tema 1 + 8h Tema 3 + 12h hores Tema 5)
 
 **Format/Organització**: Per parelles.
 
@@ -25,9 +25,9 @@ Una empresa de videojocs indie vol crear una plataforma web per als seus jugador
 - Crear un model entitat relació i gestionar una base de dades relacional.
 - Desenvolupar un projecte en equip amb les tecnologies HTML, CSS, JavaScript, PHP i MySQL.
 - Implementar un sistema d'autenticació amb sessions PHP i comprendre la funcionalitat de les Cookies.
-- Crear una petita API per realitzar la comunicació entre el frontend i el backend.
+- Crear una petita API per realitzar una comunicació estructurada i eficient entre el frontend i el backend.
 - Realitzar auditories de seguretat i implementar mesures de seguretat contra vulnerabilitats web (SQLi, XSS, CSRF, etc).
-- Realitzar el desplegament de l'aplicació en un entorn de producció amb contenidors Docker.
+- Realitzar el desplegament de l'aplicació en un entorn de producció amb contenidors Docker en xarxa.
 
 ## 3. ELEMENTS A ELABORAR I LLIURAR
 
@@ -35,22 +35,23 @@ Una empresa de videojocs indie vol crear una plataforma web per als seus jugador
 - **1. Base de dades MySQL** amb el model ER complet (usuaris, jocs, nivells dels jocs, classificacions, etc.)
 - **2. Frontend HTML i CSS** amb una interfície d'usuari minimalista, moderna i intuïtiva.
 - **3. Un Videojoc o més amb JavaScript** que permetin diferents nivells de dificultat.
-- **4. Backend PHP** amb un sistema de sessions, sistema CRUD de BBDD i una API funcional per la gestió dels jocs.
+- **4. Backend PHP** amb un sistema de sessions, sistema CRUD de BBDD i una API funcional per la gestió dels jocs i nivells.
 
 - **Sistema d'autenticació** amb registre, login, logout i perfil d'usuari.
 - **API** de consulta que retorni un conjunt de paràmetres segons el joc, l'usuari i el nivell.
 - **Classificació** amb una taula amb el rànking dels millors jugadors per cada joc actiu.
-- **Desplegament** en un sistema de contenidors en xarxa.
+- **Anàlisis de vulnerabilitats** amb el procés d'explotació i les mesures de seguretat implementades.
+- **Desplegament** de l'aplicació en un sistema LAMP i posteriorment en un sistema de contenidors Docker en xarxa.
 
 ### Documentació:
 - Model Entitat-Relació de la base de dades i script SQL.
 - Documentació de l'API com s'utilitza (endpoints, paràmetres, format de les respostes, etc.)
 - Codi font en Github funcional, estructurat i comentat adequadament.
 - Petit informe d'auditoria amb les vulnerabilitats detectades i les correccions aplicades.
+- Documentació per replicar el procés de desplegament en contenidors Docker.
 
 ### Presentació:
 - Demostració funcional de la plataforma (registre, login, sessions, jocs, puntuacions, etc.)
-- Anàlisi i explotació de vulnerabilitats (realitzar auditoria de seguretat i implementar mesures de seguretat contra vulnerabilitats web)
 - Posada en producció segura (desplegament de la solució en un sistema de contenidors en xarxa)
 
 ## 4. ESPECIFICACIONS TÈCNIQUES
@@ -70,15 +71,19 @@ Una empresa de videojocs indie vol crear una plataforma web per als seus jugador
 - **API** encarregada d'obtenir la configuració inicial dels jocs segons l'usuari i el nivell.
 
 ### Requisits d'arquitectura:
-- **Un contenidor frontend web** (Nginx/Apache) - nginx:alpine o httpd:alpine
-- **Un contenidor backend API** (PHP + API) - php:apache
-- **Un contenidor base de dades** (MySQL/MariaDB) - mariadb:latest o mysql:8.0
+- **Tema 1 i Tema 3**:
+  - Pila de Software LAMP (Linux, Apache, MySQL, PHP)
+- **Tema 5**:
+  - **Un contenidor frontend web** (Nginx/Apache) - nginx:alpine o httpd:alpine
+  - **Un contenidor backend API** (PHP + API) - php:apache
+  - **Un contenidor base de dades** (MySQL/MariaDB) - mariadb:latest o mysql:8.0
 
 ## 5. PROPOSTA MODEL ENTITAT-RELACIÓ
 
 Segons les taules de la base de dades (usuaris, jocs, nivells_joc, partides i progres_usuari), es proposen les següents relacions:
 
 ### Relacions:
+
 - Un **usuari** pot tenir molts **progres_usuari** (1 → N)
 - Un **joc** pot tenir molts **nivells_joc** (1 → N)
 - Un **usuari** pot jugar moltes **partides** (1 → N)
@@ -97,26 +102,30 @@ Segons les taules de la base de dades (usuaris, jocs, nivells_joc, partides i pr
 
 ### Endpoints dels jocs:
 ```
-GET  /api/jocs                    → Llistar jocs disponibles (per verificar funcionalitat)
-GET  /api/jocs/{id}/config        → Obtenir la configuració del joc de l'usuari actual
-POST /api/jocs/{id}/puntuacio     → Guardar la puntuació d'una partida de l'usuari actual
-GET  /api/jocs/{id}/classificacio → Classificació d'un joc concret
-GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usuari)
+GET  /api/jocs                        → Llistar jocs disponibles (pantalla biblioteca de jocs)
+GET  /api/jocs/{id}                   → Obtenir les dades generals d'un joc (nom, descripció, etc.)
+GET  /api/jocs/{id}/nivells/{nivell}  → Obtenir la configuració d'un nivell concret d'un joc
+GET  /api/jocs/{id}/classificacio     → Classificació d'un joc concret
+POST /api/jocs/{id}/puntuacio         → Guardar la puntuació d'una partida de l'usuari actual
+
 ```
 
 ### Exemple de la resposta JSON d'un nivell d'un joc:
 ```json
+// GET /api/jocs/10/nivells/3
 {
-  "nivell": 2,
-  "enemics": 16,
-  "projectils": 6,
-  "vides": 3,
-  "punts": 600
+    "id": 10,
+    "nom": "Naus vs Ovnis",
+    "nivell": 3,
+    "vides": 3,
+    "maxProjectils": 6,
+    "maxEnemics": 16,
+    "puntsNivell": 800
 }
 ```
 ## 7. JOCS A DESENVOLUPAR
 
-### **Joc d'exemple - Naus vs Ovnis (introducció al DOM i la programació web)**
+### **Joc d'exemple - Naus vs Ovnis (gestió del DOM i programació web amb POO)**
 **Mecànica**: El jugador controla una nau espacial que ha d'evitar col·lisionar amb els ovnis i els ha de llençar projectils per destruir-los quan apareixen a la pantalla.
 **Controls**: Fletxes per moure (a dalt i a baix) i l'espai per disparar.
 **Objectiu**: Destruir tots els ovnis sense perdre les vides i passar al següent nivell.
@@ -167,7 +176,7 @@ GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usu
 - Cronograma detallat del projecte
 - Justificació de les tasques escollides
 - Justificació del joc escollit
-- Diagrama ER actualitzat
+- Diagrama ER i taules actualitzades
 - Script SQL de creació de la base de dades (pot entregar-se a la Fase 4)
 - Script SQL amb dades de prova (pot entregar-se a la Fase 4)
 
@@ -180,26 +189,27 @@ GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usu
 
 **Pantalles mínimes**:
 - Pàgina d'inici (login + registre)
-- Plataforma de jocs (perfil d'usuari + jocs disponibles)
+- Plataforma de jocs (pantalla de jocs disponibles)
 - Pantalla del joc desenvolupat
-- Classificació del joc
+- Classificació del joc i perfil d'usuari (pot entregar-se a la Fase 4)
 
 **Lliurament**:
 - Codi HTML, CSS i JavaScript
-- Videojoc funcional amb la inicialització d'un JSON de prova.
+- Videojoc funcional amb la inicialització de variables amb un JSON de prova.
 
 ### **Fase 4: Desenvolupament del Backend PHP** (10 hores)
 
 - **Configurar l'estructura** de carpetes del projecte PHP.
-- **Implementar el sistema d'autenticació** amb sessions PHP.
+- **Implementar el sistema de registre i d'autenticació** amb sessions PHP.
 - **Crear les funcions de base de dades** per a cada entitat.
 - **Desenvolupar l'API** amb els endpoints especificats.
 
 **Funcionalitats mínimes**:
 - Registre i login d'usuaris
-- Gestió de sessions PHP
+- Pantalla de jocs disponibles
+- Gestió de sessions PHP i cookies
 - CRUD bàsic per a usuaris (jocs només si és possible, sinó inserir manualment).
-- API endpoint per obtenir les variabels d'inicialització dels diferents nivells d'un joc.
+- API endpoints per obtenir les variables d'inicialització dels diferents nivells d'un joc.
 - API endpoint per guardar puntuacions o utilitzar formularis per inserir les dades al finalitzar la partida.
 
 **Lliurament**:
@@ -210,7 +220,7 @@ GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usu
 ### **Fase 5: Integració, Auditoria i Desplegament** (8 hores)
 
 - **Connectar completament** el frontend amb el backend.
-- **Auditar la seguretat** de l'aplicació contra vulnerabilitats SQLi, XSS, CSRF, etc.
+- **Auditar la seguretat** de l'aplicació contra vulnerabilitats SQLi, XSS, LFI, CSRF, etc.
 - **Crear diferents contenidors** pel frontend, la API i el backend.
 - **Configurar una xarxa virtual Docker** per la comunicació entre els contenidors.
 - **Configurar el Desplegament** o orquestració del sistema amb Docker Compose.
@@ -219,7 +229,7 @@ GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usu
 - Registre i login d'usuaris.
 - Funcionament correcte del joc amb els diferents nivells.
 - Emmagatzematge de puntuacions i actualització de la classificació del joc.
-- Validar la seguretat de l'aplicació amb proves d'injecció SQL, XSS i CSRF.
+- Validar la seguretat de l'aplicació amb proves d'injecció SQL, XSS, LFI, CSRF, etc.
 - Verificar la comunicació entre els diferents contenidors.
 
 **Lliurament**:
@@ -243,7 +253,7 @@ GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usu
 ### **Funcionalitat (40%)**:
 - Sistema de registre i d'autenticació segur i auditat.
 - Videojoc funcional amb tots els nivells proposats als requeriments.
-- API operativa per la inicialització de cada joc segons l'usuari.
+- API operativa per la inicialització de cada joc segons el nivell de l'usuari.
 - Base de dades correctament adaptada i amb dades suficients per la seva valoració.
 - Classificació de cada joc i puntuacions individuals actualitzades en temps real per cada usuari.
 - Cada servei funciona correctament en el seu contenidor Docker.
@@ -279,6 +289,7 @@ GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usu
 - [ ] **Sessions i cookies segures** (Secure, HttpOnly, SameSite flags, regenerar session_id al fer login, timeouts i logout per inactivitat)
 - [ ] **Logout funcional** amb destrucció de la sessió.
 - [ ] **Tokens CSRF** en formularis i l'API (login, canvi de password, registre, etc.).
+- [ ] **Auth bypass**: revisar fluxos d’autenticació i autorització per evitar salts de permisos.
 
 ### Validació i Escapar caràcters especials
 - [ ] **Validació de tots els inputs** TOTES les dades introduïdes per l'usuari (al client i al servidor).
@@ -286,6 +297,18 @@ GET  /api/jocs/{id}/estadistiques → Estadístiques d'un usuari concret (id usu
 - [ ] **Prepared statements** amb consultes parametritzades per totes les queries SQL (cap concatenació d'inputs a SQL)
 - [ ] **Rate limiting a mida** Per endpoints de l'API, login o registre per la protecció contra atacs de força bruta (control per IP, per usuari, per endpoint, etc.).
 - [ ] **Protecció file uploading** (restriccions de mida, extensió (tipus MIME), escaneig del contingut (màgic numbers), emmagatzematge fora del webroot, etc).
+
+### Vulnerabilitats específiques
+
+- [ ] **SQL Injection**: Verificar que totes les consultes SQL utilitzen sentències preparades (prepared statements) amb placeholders (?, :nom) i mai concatenen directament inputs d'usuari a les consultes.
+- [ ] **XSS (Cross-Site Scripting)**: Assegurar que tots els outputs cap a HTML estan escapats amb `htmlspecialchars()` o similar, i que els inputs es validen i sanititzen abans de processar-los o guardar-los.
+- [ ] **CSRF (Cross-Site Request Forgery)**: Implementar tokens únics i secrets per a cada formulari, configurar cookies amb `SameSite=Strict` i verificar l'origen de les peticions (headers Referer/Origin).
+- [ ] **LFI/RFI (Local/Remote File Inclusion)**: No concatenar mai directament inputs d'usuari per formar rutes de fitxers. Utilitzar sempre whitelists de fitxers permesos i validar que les rutes no contenen `../` o caràcters perillosos.
+- [ ] **IDOR (Insecure Direct Object Reference)**: Per cada ID o recurs accessible via URL o formulari, verificar que l'usuari actual té permisos per accedir-hi. No confiar mai en IDs que arriben del client.
+- [ ] **SSRF (Server-Side Request Forgery)**: Quan l'aplicació fa peticions HTTP internes, bloquejar URLs a IPs privades (192.168.x.x, 127.x.x.x), validar i filtrar les URLs externes, i utilitzar whitelists de dominis permesos.
+- [ ] **Open Redirect**: No acceptar URLs de redirecció completes via paràmetres. Utilitzar només rutes internes relatives (/perfil, /dashboard) o implementar una whitelist de dominis de confiança.
+- [ ] **Command Injection**: No permetre l'execució de comandes del sistema operatiu (`exec()`, `system()`, `shell_exec()`) amb inputs d'usuari. Si és imprescindible, utilitzar whitelists estrictes i escapada de paràmetres.
+- [ ] **Path Traversal**: Validar qualsevol input que s'utilitzi per accedir a fitxers del servidor, bloquejar seqüències com `../`, `..\\` i caràcters null bytes. Utilitzar `realpath()` per resoldre rutes.
 
 ### Base de Dades
 - [ ] **Usuaris de BD específic per la app** amb permisos mínims (mai root). 
