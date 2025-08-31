@@ -10,7 +10,7 @@ En aquest tema s'introdueixen els fonaments per desenvolupar aplicacions web (fr
 ## Temes i distribució d’hores
 
 | Tema                                                       | Hores | Descripció                                                                      |
-| ---------------------------------------------------------- | ----- | ------------------------------------------------------------------------------- |
+| ---------------------------------------------------------- | ----- | -------------------------------------------------------------------------------- |
 | **01. Introducció al desenvolupament d’aplicacions web**   | 2     | Arquitectura client/servidor, editors de codi, estructura d'un projecte web, testing, seguretat i desplegament de LAMP stack. |
 | **02. Frontend: HTML5, CSS3 i JavaScript**                 | 4     | Sintaxi JS, manipulació del DOM, interacció amb l'usuari, POO i tractament de JSON.  |
 | **03. Backend amb PHP i BBDD amb MySQL**                   | 4     | Fonaments de PHP, processament de formularis, sortida dinàmica, gestió de sessions i de BBDD (CRUD). |

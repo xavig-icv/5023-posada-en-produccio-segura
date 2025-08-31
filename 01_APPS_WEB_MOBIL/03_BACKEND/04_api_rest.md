@@ -1,4 +1,4 @@
-# 07. Les APIs i la Comunicació amb el Frontend
+# 04. Les APIs i la Comunicació amb el Frontend
 
 Una **API** (Application Programming Interface) és un conjunt de regles, protocols i mecanismes que permeten la comunicació entre diferents aplicacions o components de software de manera estructurada encara que estiguin desenvolupades amb llenguatges de programació diferents. En el context del desenvolupament web, les APIs actuen com a pont entre el frontend (HTML, CSS i JavaScript) i el backend (PHP i Bases de Dades) permetent que es puguin intercanviar dades de manera eficient.
 
@@ -70,10 +70,10 @@ Exemples de resposta JSON:
 
 ## API Rudimentària (exemple bàsic)
 
-### Fitxer de connexió (db_connect.php)
+### Fitxer de connexió (db_pdo.php)
 ```php
 <?php
-// db_connect.php
+// db_pdo.php
 // Dades de connexió
 $servidor = 'IP_DE_LA_VM';
 $bd = 'plataforma_videojocs';
@@ -94,7 +94,7 @@ try {
 ```php
 <?php
 // api_rudimentaria.php
-require_once "./db_connect.php";
+require_once "./db_pdo.php";
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   if (isset($_GET['joc_id']) && isset($_GET['nivell'])) {
     // Vulnerabilitat: SQL Injection per concatenació directa de la variable a la query
@@ -117,10 +117,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   }
 }
 $pdo = null;
+?>
 ```
 
-### Exemple de petició des del frontend (PHP que genera JS dinàmic)
+### Exemple de petició des del frontend (front_api_rudimentaria.php)
 ```php
+<?php
+//front_api_rudimentaria.php
 //Simulem que la ruta del joc és http://IP_DE_LA_VM/jocs/1/index.php (vol dir que joc_id=1)
 session_start();
 if (isset($_SESSION['nivell'])) {
@@ -128,16 +131,17 @@ if (isset($_SESSION['nivell'])) {
 } else {
   $nivell = 1;
 }
-$jocId = 1; //Segons la ruta del joc
+$jocId = 1; 
+//Modifiqueu la IP i també la ruta del fitxer de la api rudimentaria
 $url = 'http://IP_DE_LA_VM/api_rudimentaria.php?joc_id=' . $jocId . '&nivell=' . $nivell;
 $json = file_get_contents($url);
 $dades = json_decode($json);
-foreach ($dades as $variable) {
-  $vides = $variable->vides;
-  $maxPunts = $variable->puntsNivell;
-  $maxEnemics = $variable->maxEnemics;
-  $maxProjectils = $variable->maxProjectils;
-}
+
+$vides = $dades->vides;
+$maxPunts = $dades->puntsNivell;
+$maxEnemics = $dades->maxEnemics;
+$maxProjectils = $dades->maxProjectils;
+
 echo "<script>";
 echo "const nivell = " . $nivell . ";";
 echo "console.log('Nivell: '+nivell);";
@@ -150,16 +154,17 @@ echo "console.log('maxPunts: '+maxPunts);";
 echo "let vides = " . $vides . ";";
 echo "console.log('vides: '+vides);";
 echo "</script>";
+?>
 ```
 
-## API REST (exemple bàsic)
+## API REST BÀSICA (api_basica.php)
 
 > Mantenim la connexió a bases de dades anterior.
 
 ```php
 <?php
-// api.php
-require_once "./db_connect.php";
+// api_basica.php
+require_once "./db_pdo.php";
 
 // Definim el tipus de resposta per a tota l'API
 header('Content-Type: application/json');
@@ -168,13 +173,14 @@ header('Access-Control-Allow-Origin: *'); // VULNERABILITAT: CORS permissiu a to
 // Obtenim la URL sol·licitada
 $uri = explode("/", trim($_SERVER['REQUEST_URI'], "/"));
 
-// Ex: /api/jocs/1/nivells/3
+// VIGILEU el número d'elements de la vostra URI pot canviar!!
+// Ex: /api.php/jocs/1/nivells/3
 // uri[0] = api, uri[1] = jocs, uri[2] = 1, uri[3] = nivells, uri[4] = 3
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === "GET") {
-  // Validar estructura: /api.php/jocs/{id}/nivells/{nivell}
+  // Validar l'estructura: /api.php/jocs/{id}/nivells/{nivell}
   if (count($uri) === 5 && $uri[1] === "jocs" && $uri[3] === "nivells") {
     $jocId = (int) $uri[2];
     $nivell = (int) $uri[4];
@@ -200,19 +206,30 @@ if ($method === "GET") {
 }
 
 $pdo = null;
+?>
 ```
 
-### Exemple de petició des del frontend (JavaScript amb fetch)
+### Exemple de petició des del frontend (front_api_basica.php)
 
-```javascript
+```php
+<?php
+session_start();
+if (!isset($_SESSION['nivell'])) {
+    $_SESSION['nivell'] = 1; 
+}
+?>
+<script>
 //Simulem que la ruta del joc és http://IP_DE_LA_VM/jocs/1/index.php (vol dir que joc_id=1)
 const jocId = 1; // Ex: segons la ruta del joc
-let nivell = sessionStorage.getItem("nivell") || 1;
+let nivell = <?php echo $_SESSION['nivell']; ?>;
 
+//Poseu correctament la ruta de la API al fet el fetch.
 fetch(`http://IP_DE_LA_VM/api.php/jocs/${jocId}/nivells/${nivell}`)
   .then(res => res.json())
   .then(data => {
     console.log("Resposta API:", data);
+    document.write(JSON.stringify(obj));
+
     //Assignar variables del joc
     const vides = data.vides;
     const maxPunts = data.puntsNivell;
@@ -229,4 +246,5 @@ fetch(`http://IP_DE_LA_VM/api.php/jocs/${jocId}/nivells/${nivell}`)
     // Inicialitzar joc amb la configuració (crear objecte usuari amb les vides, etc.).
   })
   .catch(err => console.error("Error de la API:", err));
+</script>
 ```

@@ -1,4 +1,4 @@
-# 02. Gestió de Formularis i Dades
+# 01. Gestió de Formularis i Dades
 
 La **gestió de formularis** és una de les tasques més importants que ha de realitzar el desenvolupador web al backend. A través dels formularis els usuaris poden enviar informació al servidor: dades de registre d'usuari, dades per iniciar sessió, dades de contacte, comentaris en un post, text per realitzar cerques, etc, filtres de categories, etc.
 
@@ -42,13 +42,13 @@ El mètode POST envia les dades dins del cos de la petició HTTP (no apareixen a
 
 ```html
 <!-- Formulari GET -->
-<form action="./formulari_get.php" method="GET">
-    <label for="nom">Nom del producte:</label>
-    <input type="text" id="nom" name="nom" required>
-    <label for="preu">Preu (€):</label>
-    <input type="text" id="preu" name="preu" required>
-    <button type="submit">Enviar</button>
-  </form>
+<form action="./index_get.php" method="GET">
+  <label for="nom">Nom del producte:</label>
+  <input type="text" id="nom" name="nom" required>
+  <label for="preu">Preu (€):</label>
+  <input type="text" id="preu" name="preu" required>
+  <button type="submit">Enviar</button>
+</form>
 ```
 
 ### (Processament GET) index_get.php 
@@ -63,15 +63,15 @@ PHP proporciona arrays superglobals per accedir a les dades enviades des del fro
 
 ```php
 <?php
-// formulari_get.php
+// index_get.php
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $nom = $_GET['nom'] ?? '';
-    $preu = $_GET['preu'] ?? 0;
-    $rol = $_GET['rol'] ?? 'usuari';
+  $nom = $_GET['nom'] ?? '';
+  $preu = $_GET['preu'] ?? 0;
+  $rol = $_GET['rol'] ?? 'usuari';
 
-    echo "<h2>Resultats de la cerca</h2>";
-    echo "<p>Nom del producte: $nom </p>";
-    echo "<p>Preu: $preu € </p>";
+  echo "<h2>Resultats de la cerca</h2>";
+  echo "<p>Nom del producte: $nom </p>";
+  echo "<p>Preu: $preu € </p>";
 }
 ?>
 ```
@@ -80,13 +80,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 ```html
 <!-- Formulari POST -->
-<form action="./formulari_post.php" method="POST">
-    <label for="nom">Usuari:</label>
-    <input type="text" id="nom" name="nom" required>
-    <label for="password">Contrasenya:</label>
-    <input type="password" id="password" name="password" required>
-    <input type="hidden" name="rol" value="usuari">
-    <button type="submit">Enviar</button>
+<form action="./index_post.php" method="POST">
+  <label for="nom">Usuari:</label>
+  <input type="text" id="nom" name="nom" required>
+  <label for="password">Contrasenya:</label>
+  <input type="password" id="password" name="password" required>
+  <input type="hidden" name="rol" value="usuari">
+  <button type="submit">Enviar</button>
 </form>
 ```
 
@@ -96,21 +96,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 ```php
 <?php
-// formulari_post.php
+// index_post.php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nom = $_POST['nom'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $rol = $_POST['rol'] ?? 'usuari';
+  $nom = $_POST['nom'] ?? '';
+  $password = $_POST['password'] ?? '';
+  $rol = $_POST['rol'] ?? 'usuari';
 
-    echo "<h2>Resultats del login</h2>";
-    echo "<p>Usuari: $nom </p>";
-    echo "<p>Contrasenya: $password </p>";
+  echo "<h2>Resultats del login</h2>";
+  echo "<p>Usuari: $nom </p>";
+  echo "<p>Contrasenya: $password </p>";
 
-    if ($rol === 'admin') {
-        echo "<p>Rol: Administrador</p>";
-    } else {
-        echo "<p>Rol: Usuari</p>";
-    }
+  if ($rol === 'admin') {
+    echo "<p>Rol: Administrador</p>";
+  } else {
+    echo "<p>Rol: Usuari</p>";
+  }
 }
 ?>
 ```

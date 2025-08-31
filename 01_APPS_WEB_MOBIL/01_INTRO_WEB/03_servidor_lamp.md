@@ -1,6 +1,6 @@
 # 03. Instal·lació Servidor LAMP
 
-> ⚠️ **ADVERTÈNCIA**: Aquesta és una configuració per defecte amb paràmetres estàndard i que inencionadament pot contenir configuracions vulnerables. Només es podria utilitzar en entorns de desenvolupament. Aquesta instal·lació serà auditada i millorada al tema 3 - auditoria de seguretat web i modificada al tema 5 - desplegament en contenidors Docker en xarxa.
+    > ⚠️ **ADVERTÈNCIA**: Aquesta és una configuració per defecte amb paràmetres estàndard i que inencionadament pot contenir configuracions vulnerables. Només es podria utilitzar en entorns de desenvolupament. Aquesta instal·lació serà auditada i millorada al tema 3 - auditoria de seguretat web i modificada al tema 5 - desplegament en contenidors Docker en xarxa.
 
 ## Índex
 1. [Instal·lació VirtualBox](#1-installació-virtualbox)
@@ -42,8 +42,8 @@ vboxmanage --version
 
 ## 2. Importació Ubuntu Server OVA
 
-### Descàrrega de la imatge OVA
-> **PLACEHOLDER**: Descarregar la imatge Ubuntu Server des de [ENLLAÇ_OVA_AQUI]
+### Descàrrega l'OVA
+> Descarregar la màquina d'Ubuntu Server a l'enllaç: [UBUNTU SERVER OVA](https://drive.google.com/file/d/1VXNAoeM6f-mpB7Iz9EGOYkIISgtqY1Ro/)
 
 ### Importació de l'OVA
 Des de VirtualBox GUI:

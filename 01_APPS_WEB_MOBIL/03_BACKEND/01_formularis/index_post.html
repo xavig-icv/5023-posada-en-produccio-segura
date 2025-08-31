@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Formulari GET</title>
+    <meta name="description" content="Processament de Formularis GET amb PHP" />
+    <meta name="author" content="Xavi Garcia @xavig-icv" />
+    <meta name="copyright" content="Xavi Garcia @xavig-icv" />
+  </head>
+  <body>
+    <!-- Formulari POST -->
+     <h2>Processament de Formularis POST amb PHP</h2>
+    <form action="./index_post.php" method="POST">
+      <label for="nom">Usuari:</label>
+      <input type="text" id="nom" name="nom" required>
+      <label for="password">Contrasenya:</label>
+      <input type="password" id="password" name="password" required>
+      <input type="hidden" name="rol" value="usuari">
+      <button type="submit">Enviar</button>
+    </form>
+  </body>
+</html>

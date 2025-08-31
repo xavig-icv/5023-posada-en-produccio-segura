@@ -1,4 +1,4 @@
-# 03. Cookies i Sessions
+# 02. Gestió de Cookies i Sessions
 
 Les **cookies** i les **sessions** són eines molt importants per mantenir l'estat i la informació dels usuaris entre diferents peticions HTTP (i que no es perdi l'informació al navegar d'una pàgina a una altra). Com que HTTP és un protocol sense estat (stateless), aquestes tecnologies permeten emmagatzemar les preferències dels usuaris (cookies) i gestionar usuaris autenticats de manera segura (sessions) sense que aquests hagin d'introduir les seves preferències o credencials d'inici de sessió per cada nova pàgina que visiten.
 
@@ -23,14 +23,19 @@ Les **cookies** i les **sessions** són eines molt importants per mantenir l'est
 
 Les cookies són petits fitxers de text que s'emmagatzemen al navegador de l'usuari i s'envien automàticament amb cada petició al mateix domini. Permeten recordar la informació entre diferents visites o pàgines. PHP proporciona funcions integrades per crear, llegir i eliminar cookies de manera senzilla.
 
-### (Formulari de Cookies) cookies_form.php
+### (Formulari de Cookies) index_cookies.php
 
 ```html
+<?php
+//index_cookies.php
+$nomUsuari = $_COOKIE['nomUsuari'] ?? '';
+$tema = $_COOKIE['tema'] ?? '';
+?>
 <h2>Informació actual de les cookies</h2>
 <p>Nom Usuari: <?php echo $nomUsuari ?? ''; ?></p>
 <p>Tema: <?php echo $tema ?? ''; ?></p>
 
-<form method="GET" action="./cookies_processa.php">
+<form method="GET" action="./processa_cookies.php">
   <label for="nomUsuari">Nom Usuari:</label>
   <input type="text" id="nomUsuari" name="nomUsuari" value="<?php echo $nomUsuari ?? ''; ?>">
   <label for="tema">Tema:</label>
@@ -43,10 +48,11 @@ Les cookies són petits fitxers de text que s'emmagatzemen al navegador de l'usu
 </form>
 ```
 
-### (Processament de Cookies) cookies_processa.php
+### (Processament de Cookies) processa_cookies.php
 
 ```php
 <?php
+//processa_cookies.php
 if (isset($_GET['guardar'])) {
     setcookie('nomUsuari', $_GET['nomUsuari'], time() + 3600);
     setcookie('tema', $_GET['tema'], time() + 3600);
@@ -58,7 +64,7 @@ if (isset($_GET['eliminar'])) {
 }
 
 // Redirigir al HTML després de processar
-header("Location: cookies_form.php");
+header("Location: index_cookies.php");
 exit;
 ?>
 ```
@@ -67,10 +73,11 @@ exit;
 
 Les sessions permeten guardar informació de l’usuari al servidor i mantenir-la entre diferents peticions. PHP assigna un identificador únic (PHPSESSID) que s’envia al client via cookie per vincular les peticions de l'usuari amb la sessió corresponent.
 
-### (Formulari de Login) login.php
+### (Formulari de Login) index_sessions.php
 
 ```php
 <?php
+//index_sessions.php
 session_start();
 
 // Si ja hi ha sessió iniciada, redirigir a la pàgina de perfil
@@ -82,7 +89,7 @@ if (isset($_SESSION['errors'])) {
 ?>
 
 <h2>Login Usuari</h2>
-<form method="POST" action="login_processa.php">
+<form method="POST" action="./processa_sessions.php">
   <label for="usuari">Usuari:</label>
   <input type="text" id="usuari" name="usuari" required>
   <label for="password">Contrasenya:</label>
@@ -91,10 +98,11 @@ if (isset($_SESSION['errors'])) {
 </form>
 ```
 
-### (Processament Login) login_processa.php
+### (Processament Login) processa_sessions.php
 
 ```php
 <?php
+//processa_sessions.php
 session_start();
 
 // Login de proves: només un usuari i password fixos
@@ -112,7 +120,7 @@ if(isset($_POST['login'])) {
         $_SESSION['errors'] = "<p>Usuari o contrasenya incorrectes!</p>";
         unset($_SESSION['usuari']);
     }
-    header("Location: login.php");
+    header("Location: index_sessions.php");
     exit;
 }
 ?>

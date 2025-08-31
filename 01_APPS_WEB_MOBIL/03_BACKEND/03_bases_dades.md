@@ -1,4 +1,4 @@
-# 04. Connexió amb Bases de Dades
+# 03. Connexió amb Bases de Dades
 
 La connexió a bases de dades és fonamental per crear aplicacions web dinàmiques que permetin emmagatzemar, recuperar i manipular informació. PHP proporciona diferents eines per connectar-se i treballar amb el SGBD MySQL, un dels sistemes gestors de bases de dades relacionals més utilitzat.
 
@@ -23,16 +23,18 @@ Abans de realitzar una connexió amb el SGBD, necessitaràs tenir MySQL instal·
 ### Creació de la BD i les Taules (script.sql)
 
 ```sql
--- Crear base de dades
+-- SCRIPT PER AUTOMATITZAR LA CREACIÓ DE LA BASE DE DADES DEL PROJECTE
+
+-- Crear la base de dades
 CREATE DATABASE plataforma_videojocs CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- Crear usuari insegur per l'aplicació
+-- Crear un usuari insegur per l'aplicació
 CREATE USER 'plataforma_user'@'%' IDENTIFIED BY '123456789a';
 
 -- Concedir tots els privilegis a la base de dades i de manera global (vulnerable)
 GRANT ALL PRIVILEGES ON *.* TO 'plataforma_user'@'%' WITH GRANT OPTION;
 
--- Aplicar canvis
+-- Aplicar els canvis
 FLUSH PRIVILEGES;
 
 -- Seleccionar la base de dades
@@ -100,9 +102,10 @@ CREATE TABLE IF NOT EXISTS partides (
 
 Per realitzar la connexió amb la base de dades MySQL utilitzant MySQLi es necessari conèixer les dades d'accés (host, usuari, contrasenya i nom de la base de dades).
 
-### Fitxer de connexió (db_connect.php)
+### Fitxer de connexió (db_mysqli.php)
 ```php
 <?php
+//db_mysqli.php
 // Dades de connexió
 $host = "IP_DE_LA_VM";
 $user = "plataforma_user";
@@ -146,7 +149,7 @@ Aquestes operacions són la base de qualsevol aplicació que treballi amb dades.
 ### Processar Registre d'Usuari (crear_usuari.php)
 ```php
 <?php
-require "./db_connect.php";
+require "./db_mysqli.php";
 
 if (isset($_POST['nom_usuari'], $_POST['email'], $_POST['password'])) {
   $nom_usuari = $_POST['nom_usuari'];
@@ -154,7 +157,7 @@ if (isset($_POST['nom_usuari'], $_POST['email'], $_POST['password'])) {
   $password = $_POST['password'];
   $sql = "INSERT INTO usuaris (nom_usuari, email, password_hash) VALUES ('$nom_usuari', '$email', '$password')";
   $conn->query($sql);
-  echo "Usuari afegit a la base de dades!";
+  echo "<p>Usuari afegit a la base de dades!</p>";
   $conn->close();
 }
 ?>
@@ -173,7 +176,7 @@ if (isset($_POST['nom_usuari'], $_POST['email'], $_POST['password'])) {
 ### Processar Consulta d'Usuari (consultar_usuari.php)
 ```php
 <?php
-require "./db_connect.php";
+require "./db_mysqli.php";
 
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
@@ -205,14 +208,14 @@ if (isset($_GET['id'])) {
 ### Processar Actualització d'Usuari (actualitzar_usuari.php)
 ```php
 <?php
-require "./db_connect.php";
+require "./db_mysqli.php";
 
 if (isset($_POST['id'], $_POST['nom_usuari'])) {
   $id = $_POST['id'];
   $nom_usuari = $_POST['nom_usuari'];
   $sql = "UPDATE usuaris SET nom_usuari = '$nom_usuari' WHERE id = $id";
   $conn->query($sql);
-  echo "<p>Nom d'usuari actualitzat!<p>";
+  echo "<p>Nom d'usuari actualitzat!</p>";
   $conn->close();
 }
 ?>
@@ -231,11 +234,13 @@ if (isset($_POST['id'], $_POST['nom_usuari'])) {
 ### Processar Eliminació d'Usuari (eliminar_usuari.php)
 ```php
 <?php
+require "./db_mysqli.php";
+
 if (isset($_POST['id'])) {
   $id = $_POST['id'];
   $sql = "DELETE FROM usuaris WHERE id = $id";
   $conn->query($sql);
-  echo "<p>Usuari eliminat!<p>";
+  echo "<p>Usuari eliminat!</p>";
   $conn->close();
 }
 ?>

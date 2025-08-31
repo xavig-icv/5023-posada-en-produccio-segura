@@ -115,9 +115,11 @@ $usuari3 = Usuari::crearUsuariProves();
 print_r($usuari3->obtenirDades());
 
 // Creació d'usuaris fins al màxim permès (100)
+$usuaris = [];
 try {
     for ($i = 0; $i < 100; $i++) {
         $usuari = new Usuari("Usuari $i", "usuari$i@domini.cat", Usuari::ROL_USUARI);
+        array_push($usuaris, $usuari);
     }
 } catch (Exception $e) {
     echo "<p>Error: " . $e->getMessage() . "</p>";
