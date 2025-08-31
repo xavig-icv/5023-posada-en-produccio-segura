@@ -333,7 +333,7 @@ class Router {
 require_once 'config/database.php';
 
 class UsuariModel {
-    private $pdo;
+    public $pdo;
     
     public function __construct() {
         $this->pdo = Database::getConnection();
@@ -392,7 +392,7 @@ class UsuariModel {
 require_once 'config/database.php';
 
 class JocModel {
-    private $pdo;
+    public $pdo;
     
     public function __construct() {
         $this->pdo = Database::getConnection();
@@ -420,7 +420,7 @@ class JocModel {
 require_once 'config/database.php';
 
 class PartidaModel {
-    private $pdo;
+    public $pdo;
     
     public function __construct() {
         $this->pdo = Database::getConnection();
@@ -848,7 +848,7 @@ $router->post('/registre', 'AuthController', 'registre');
 $router->get('/logout', 'AuthController', 'logout');
 
 // Rutes de jocs
-$router->get('/', 'JocController', 'llistaJocs');
+$router->get('/', 'JocController', 'llistaJocs'); //Pàgina principal
 $router->get('/jocs', 'JocController', 'llistaJocs');
 $router->get('/jugar', 'JocController', 'jugar');
 $router->post('/guardar-puntuacio', 'JocController', 'guardarPuntuacio');
