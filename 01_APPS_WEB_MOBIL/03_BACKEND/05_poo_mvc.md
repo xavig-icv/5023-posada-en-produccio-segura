@@ -187,7 +187,7 @@ El MVC és un **patró d’arquitectura de software** que separa l'aplicació en
     ├── uploads/             # Arxius pujats pels usuaris (vulnerable!)
     ├── images/              # Imatges (fons, icones, etc.)
     ├── css/style.css        # Estils CSS
-    └── js/jocs/             # Jocs JavaScript (són públics!) control a través de API o modificar ruta
+    └── js/jocs/             # Jocs JavaScript (són públics!) control a través de l'API o modificar ruta
         ├── 1/               # 1. Joc de naus vs ovnis HTML, CSS i JS
         └── 2/               # 2. Joc de la snake HTML, CSS i JS
 ```
@@ -572,6 +572,73 @@ class JocController {
 ?>
 ```
 
+#### controllers/UsuariController.php
+```php
+<?php
+require_once 'models/UsuariModel.php';
+require_once 'models/PartidaModel.php';
+require_once 'core/Session.php';
+
+class UsuariController {
+    private $usuariModel;
+    private $partidaModel;
+    
+    public function __construct() {
+        $this->usuariModel = new UsuariModel();
+        $this->partidaModel = new PartidaModel();
+    }
+    
+    public function perfil() {
+        if (!Session::isLoggedIn()) {
+            header("Location: /?route=/login");
+            exit;
+        }
+        
+        // VULNERABILITAT: IDOR - es pot veure perfil d'altres usuaris via URL
+        $usuariId = $_GET['id'] ?? Session::get('usuari_id');
+        $usuari = $this->usuariModel->obtenirUsuari($usuariId);
+        
+        if (!$usuari) {
+            die("Usuari no trobat");
+        }
+        
+        // Obtenir partides de l'usuari
+        $partides = $this->partidaModel->obtenirPartides($usuariId);
+        
+        include 'views/usuari/perfil.php';
+    }
+    
+    public function ranking() {
+        $ranking = $this->usuariModel->obtenirRanking();
+        include 'views/usuari/ranking.php';
+    }
+    
+    public function actualitzarPerfil() {
+        if (!Session::isLoggedIn()) {
+            header("Location: /?route=/login");
+            exit;
+        }
+        
+        if ($_POST) {
+            // VULNERABILITAT: Sense protecció CSRF i validació insuficient
+            $usuariId = Session::get('usuari_id');
+            $nomComplet = $_POST['nom_complet'] ?? '';
+            $email = $_POST['email'] ?? '';
+            
+            // VULNERABILITAT: SQL Injection
+            $sql = "UPDATE usuaris SET nom_complet = '$nomComplet', email = '$email' WHERE id = $usuariId";
+            $this->usuariModel->pdo->exec($sql);
+            
+            // VULNERABILITAT: Open Redirect
+            $redirect = $_GET['redirect'] ?? '/?route=/perfil';
+            header("Location: $redirect");
+            exit;
+        }
+    }
+}
+?>
+```
+
 ### 4. Vistes (Presentació)
 
 #### views/layout/header.php
@@ -646,6 +713,65 @@ class JocController {
     </form>
     
     <p>No tens compte? <a href="/?route=/registre">Registra't aquí</a></p>
+</div>
+
+<?php include 'views/layout/footer.php'; ?>
+```
+
+#### views/auth/registre.php
+```php
+<?php include 'views/layout/header.php'; ?>
+
+<div class="auth-container">
+    <h2>Crear Compte</h2>
+    
+    <?php if (isset($error)): ?>
+        <!-- VULNERABILITAT: XSS -->
+        <div class="error"><?= $error ?></div>
+    <?php endif; ?>
+    
+    <!-- VULNERABILITAT: Sense protecció CSRF -->
+    <form method="POST" action="/?route=/registre">
+        <div class="form-group">
+            <label for="nom_usuari">Nom d'usuari:</label>
+            <!-- VULNERABILITAT: XSS - valor sense escapar -->
+            <input type="text" id="nom_usuari" name="nom_usuari" 
+                   value="<?= $_POST['nom_usuari'] ?? '' ?>" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" 
+                   value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="nom_complet">Nom complet:</label>
+            <!-- VULNERABILITAT: XSS -->
+            <input type="text" id="nom_complet" name="nom_complet" 
+                   value="<?= $_POST['nom_complet'] ?? '' ?>">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Contrasenya:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="confirm_password">Confirmar contrasenya:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+        </div>
+        
+        <!-- VULNERABILITAT: Checkbox de termes sense validació -->
+        <div class="form-group">
+            <input type="checkbox" id="termes" name="termes" required>
+            <label for="termes">Accepto els <a href="/termes" target="_blank">termes i condicions</a></label>
+        </div>
+        
+        <button type="submit">Registrar-se</button>
+    </form>
+    
+    <p>Ja tens compte? <a href="/?route=/login">Inicia sessió aquí</a></p>
 </div>
 
 <?php include 'views/layout/footer.php'; ?>
