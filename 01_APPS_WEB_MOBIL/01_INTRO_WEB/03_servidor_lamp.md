@@ -3,6 +3,7 @@
     > ⚠️ **ADVERTÈNCIA**: Aquesta és una configuració per defecte amb paràmetres estàndard i que inencionadament pot contenir configuracions vulnerables. Només es podria utilitzar en entorns de desenvolupament. Aquesta instal·lació serà auditada i millorada al tema 3 - auditoria de seguretat web i modificada al tema 5 - desplegament en contenidors Docker en xarxa.
 
 ## Índex
+
 1. [Instal·lació VirtualBox](#1-installació-virtualbox)
 2. [Importació Ubuntu Server OVA](#2-importació-ubuntu-server-ova)
 3. [Configuració inicial del sistema](#3-configuració-inicial-del-sistema)
@@ -17,6 +18,7 @@
 ## 1. Instal·lació VirtualBox
 
 ### Actualització del sistema
+
 Primer actualitzem els repositoris del sistema:
 
 ```bash
@@ -25,6 +27,7 @@ sudo apt upgrade
 ```
 
 ### Instal·lació de VirtualBox
+
 Instal·lem VirtualBox des dels repositoris oficials:
 
 ```bash
@@ -32,6 +35,7 @@ sudo apt install virtualbox virtualbox-ext-pack
 ```
 
 ### Verificació de la instal·lació
+
 Comprovem que VirtualBox s'ha instal·lat correctament:
 
 ```bash
@@ -43,10 +47,13 @@ vboxmanage --version
 ## 2. Importació Ubuntu Server OVA
 
 ### Descàrrega l'OVA
+
 > Descarregar la màquina d'Ubuntu Server a l'enllaç: [UBUNTU SERVER OVA](https://drive.google.com/file/d/1VXNAoeM6f-mpB7Iz9EGOYkIISgtqY1Ro/)
 
 ### Importació de l'OVA
+
 Des de VirtualBox GUI:
+
 1. Obrir VirtualBox
 2. Fitxer → Importar servei virtualitzat
 3. Seleccionar l'arxiu OVA descarregat
@@ -54,6 +61,7 @@ Des de VirtualBox GUI:
 5. Importar
 
 ### Configuració de xarxa
+
 Configurar l'adaptador de xarxa com a "Adaptador pont" per obtenir IP automàtica via DHCP.
 
 ---
@@ -61,6 +69,7 @@ Configurar l'adaptador de xarxa com a "Adaptador pont" per obtenir IP automàtic
 ## 3. Configuració inicial del sistema
 
 ### Actualització del sistema Ubuntu Server
+
 Un cop iniciada la VM, actualitzem el sistema:
 
 ```bash
@@ -83,16 +92,19 @@ sudo systemctl status ssh
 ```
 
 Verifiquem que SSH està escoltant pel port 22 (port per defecte):
+
 ```bash
 sudo ss -plutn | grep :22
 ```
 
 Assegurem que SSH s'iniciï automàticament:
+
 ```bash
 sudo systemctl enable ssh
 ```
- 
+
 Obtenir la IP que permetrà connectar-nos remotament des del nostre ordinador:
+
 ```bash
 ip a
 ```
@@ -106,6 +118,7 @@ ssh USUARI@IP_DE_LA_VM
 ```
 
 Verificar la connexió SSH a la màquina servidor:
+
 ```bash
 # Veure informació del sistema
 uname -a
@@ -116,6 +129,7 @@ uname -a
 ## 4. Instal·lació Apache
 
 ### Instal·lació del servidor web Apache
+
 Instal·lem Apache amb la configuració per defecte:
 
 ```bash
@@ -123,6 +137,7 @@ sudo apt install apache2
 ```
 
 ### Verificació del servei Apache
+
 Comprovem que Apache s'ha iniciat correctament:
 
 ```bash
@@ -130,6 +145,7 @@ sudo systemctl status apache2
 ```
 
 ### Verificació dels ports d'Apache
+
 Verifiquem que Apache està escoltant al port 80:
 
 ```bash
@@ -137,6 +153,7 @@ sudo ss -plutn | grep :80
 ```
 
 ### Habilitació d'Apache a l'arrencada
+
 Assegurem que Apache s'iniciï automàticament:
 
 ```bash
@@ -144,6 +161,7 @@ sudo systemctl enable apache2
 ```
 
 ### Test de la pàgina per defecte
+
 Obtenim la IP de la màquina i comprovem la pàgina per defecte:
 
 ```bash
@@ -156,6 +174,7 @@ ip addr show
 ## 5. Instal·lació PHP
 
 ### Instal·lació de PHP i mòduls necessaris
+
 Instal·lem PHP amb els mòduls necessaris per al projecte web:
 
 ```bash
@@ -163,6 +182,7 @@ sudo apt install php libapache2-mod-php php-mysql php-mysqli php-json php-curl p
 ```
 
 ### Verificació de la instal·lació PHP
+
 Comprovem la versió de PHP instal·lada i la ruta del fitxer de configuració i d'inicialització de PHP:
 
 ```bash
@@ -172,6 +192,7 @@ php --ini
 ```
 
 ### Configuració PHP per fer-la més vulnerable
+
 Editem el fitxer de configuració per fer-lo menys segur (per l'auditoria posterior):
 
 ```bash
@@ -189,6 +210,7 @@ allow_url_fopen = On
 ```
 
 ### Creació d'un fitxer phpinfo per verificació
+
 Creem un fitxer per comprovar la configuració de PHP:
 
 ```bash
@@ -196,6 +218,7 @@ echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
 ```
 
 ### Reiniciar Apache per aplicar canvis
+
 Reiniciem Apache per aplicar la configuració de PHP:
 
 ```bash
@@ -203,46 +226,53 @@ sudo systemctl restart apache2
 ```
 
 ### Verificació del servei Apache després dels canvis
+
 ```bash
 sudo systemctl status apache2
 ```
 
 ### Test de PHP
+
 Naveguem a `http://IP_DE_LA_VM/info.php` per veure la informació de PHP.
 
 ---
 
 ## 6. Instal·lació MySQL
 
-### Instal·lació del servidor MySQL
-Instal·lem MySQL Server amb configuració per defecte:
+### Instal·lació del servidor MariaDB/MySQL
+
+Instal·lem MariaDB/MySQL Server amb configuració per defecte:
 
 ```bash
-sudo apt install mysql-server
+sudo apt install mariadb-server
 ```
 
 ### Verificació del servei MySQL
+
 Comprovem que MySQL s'ha iniciat correctament:
 
 ```bash
-sudo systemctl status mysql
+sudo systemctl status mariadb
 ```
 
 ### Verificació dels ports de MySQL
+
 Verifiquem que MySQL està escoltant al port 3306:
 
 ```bash
 sudo ss -plutn | grep :3306
 ```
 
-### Habilitació de MySQL a l'arrencada
+### Habilitar MySQL a l'arrencada del servidor
+
 Assegurem que MySQL s'iniciï automàticament:
 
 ```bash
-sudo systemctl enable mysql
+sudo systemctl enable mariadb
 ```
 
 ### Accés a MySQL
+
 Accedim a MySQL com a root sense password:
 
 ```bash
@@ -268,6 +298,7 @@ EXIT;
 ```
 
 ### Configuració per accés remot a MySQL
+
 Editem el fitxer de configuració de MySQL/MariaDB per permetre connexions remotes:
 
 ```bash
@@ -294,6 +325,7 @@ sudo ss -plutn | grep :3306
 ```
 
 ### Test de connexió amb l'usuari creat
+
 Provem la connexió amb el nou usuari en local i en remot:
 
 ```bash
@@ -323,6 +355,7 @@ EXIT;
 ## 7. Configuració de permisos web
 
 ### No modifiquem la configuració del propietari de la carpeta arrel de la pàgina web
+
 L'usuari per defecte de la carpeta web és ROOT.
 
 ```bash
@@ -330,6 +363,7 @@ ls -la /var/www/html
 ```
 
 ### No modifiquem la configuració de permisos de la carpeta web
+
 Com el propietari és ROOT, l'usuari Apache (www-data) no podrà escriure a la carpeta.
 No podrà pujar fitxer (uploads), enregistrar logs, guardar fitxer dinàmicament, caché o sessions PHP, etc.
 Durant el desenvolupament inicial haureu de plantejar com podeu solucionar aquest problema.
@@ -341,6 +375,7 @@ Durant el desenvolupament inicial haureu de plantejar com podeu solucionar aques
 ## 8. Verificació final del sistema
 
 ### Test de tots els serveis
+
 Comprovem que tots els serveis estan actius:
 
 ```bash
@@ -358,10 +393,11 @@ sudo ss -plutn | grep -E ':22|:80|:3306'
 ```
 
 ### Test de la pàgina web per defecte d'Apache
+
 Naveguem a `http://IP_DE_LA_VM` per veure la pàgina per defecte d'Apache.
 
 ### Test de PHP
-Naveguem a `http://IP_DE_LA_VM/info.php` per verificar que PHP funciona correctament.
 
+Naveguem a `http://IP_DE_LA_VM/info.php` per verificar que PHP funciona correctament.
 
 > **RECORDATORI**: Aquesta configuració conté configuracions per defecte i vulnerabilitats intencionades que seran identificades i corregides durant l'auditoria de seguretat web del Tema 3.

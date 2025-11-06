@@ -9,18 +9,18 @@ En aquest tema s'introdueixen els fonaments per desenvolupar aplicacions web (fr
 
 ## Temes i distribució d’hores
 
-| Tema                                                       | Hores | Descripció                                                                      |
-| ---------------------------------------------------------- | ----- | -------------------------------------------------------------------------------- |
-| **01. Introducció al desenvolupament d’aplicacions web**   | 2     | Arquitectura client/servidor, editors de codi, estructura d'un projecte web, testing, seguretat i desplegament de LAMP stack. |
-| **02. Frontend: HTML5, CSS3 i JavaScript**                 | 4     | Sintaxi JS, manipulació del DOM, interacció amb l'usuari, POO i tractament de JSON.  |
-| **03. Backend amb PHP i BBDD amb MySQL**                   | 4     | Fonaments de PHP, processament de formularis, sortida dinàmica, gestió de sessions i de BBDD (CRUD). |
-| **04. Projecte: App Web amb Frontend + Backend**           | 10    | Iniciar el projecte web (plataforma de videojocs) en un format guiat.           |
+| Tema                                                     | Hores | Descripció                                                                                                                    |
+| -------------------------------------------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **01. Introducció al desenvolupament d’aplicacions web** | 2     | Arquitectura client/servidor, editors de codi, estructura d'un projecte web, testing, seguretat i desplegament de LAMP stack. |
+| **02. Frontend: HTML5, CSS3 i JavaScript**               | 4     | Sintaxi JS, manipulació del DOM, interacció amb l'usuari, POO i tractament de JSON.                                           |
+| **03. Backend amb PHP i BBDD amb MySQL**                 | 4     | Fonaments de PHP, processament de formularis, sortida dinàmica, gestió de sessions i de BBDD (CRUD).                          |
+| **04. Projecte: App Web amb Frontend + Backend**         | 10    | Iniciar el projecte web (plataforma de videojocs) en un format guiat.                                                         |
 
+## Resultats d'aprenentatge esperats
 
-### Resultats d'aprenentatge esperats
 - Comprendre l'arquitectura client‑servidor, l'estructura d'un projecte web i les eines bàsiques pel desenvolupament d'aplicacions web.
 - Configurar i desplegar un entorn de producció real en un servidor amb la pila de software LAMP (Linux, Apache, MySQL i PHP).
-- Establir i gestionar la connexió remota entre l'editor de codi i el servidor de desenvolupament LAMP. 
+- Establir i gestionar la connexió remota entre l'editor de codi i el servidor de desenvolupament LAMP.
 - Crear interfícies bàsiques amb HTML i CSS i gestionar interactivitat amb JavaScript (DOM i tractament de JSON).
 - Connectar PHP amb MySQL per realitzar operacions CRUD a la base de dades.
 - Implementar l'autenticació bàsica amb sessions PHP i gestionar cookies d'usuari.
