@@ -40,7 +40,7 @@ Aquests tres punts d'entrada són sensibles perquè es pot injectar codi si l'ap
 
 - HTTP Header Injection / CRLF - injectar caràcters de salt de línia per manipular capçaleres HTTP.
 
-# Què busquem?
+## Què busquem?
 
 - Robatori de dades sensibles: obtenir cookies, tokens, contrasenyes o informació de la base de dades.
 
