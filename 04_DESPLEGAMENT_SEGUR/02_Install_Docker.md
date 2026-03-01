@@ -7,7 +7,7 @@ Descarrega la màquina: [Descarregar Debian amb Docker](https://drive.google.com
 ```bash
 # Iniciar sessió amb usuari/usuari
 ssh usuari@IP_DE_LA_VM
-# root/ciber
+# root/usuari
 su root
 
 # Actualització de repositoris i paquets

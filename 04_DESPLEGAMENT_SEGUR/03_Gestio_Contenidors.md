@@ -46,7 +46,7 @@ Exemples:
 - `nginx:latest` → Última versió d'nginx
 - `nginx:1.29.5` → Versió específica 1.29.5
 - `mariadb:lts-ubi` → MariaDB LTS (estable i amb patch de seguretat)
-- `php:8.3.30-apache` → PHP 8.3.30 amb Apache
+- `php:8.3-apache` → PHP 8.3 amb Apache
 
 **Recomanació**: En producció, sempre especifica la versió (no utilitzis `:latest`).
 
@@ -137,7 +137,7 @@ docker exec ciber-ubuntu ls
 
 ### Exercici 1 (Contenidor bàsic Nginx)
 
-1. Descarrega la imatge oficial d'nginx.
+1. Descarrega nginx:1.29.5.
 2. Executa un contenidor en seogn pla amb el nom `ciber-nginx` exposant el port 80 del host al 80 del contenidor.
 3. Accedeix a la pàgina de prova des del navegador del host (http://localhost)
 4. Accedeix al terminal del contenidor `ciber-nginx`
