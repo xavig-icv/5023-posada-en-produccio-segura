@@ -118,7 +118,7 @@ Confirmem que la base de dades amb la seva informació és manté quan s'elimina
 
 És important assignar el mateix volum "db-dades" al nou contenidor.
 
-![Contenidor de BD amb un volum associat (persistència)](image.png)
+![Contenidor de BD amb un volum associat (persistència)](./img/22-contenidor-volum-associat-persistencia.png)
 
 ## 2. Tipus d'emmagatzematge Docker
 
